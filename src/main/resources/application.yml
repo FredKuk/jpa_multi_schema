@@ -1,0 +1,31 @@
+
+spring:
+    jpa:
+        hibernate:
+            naming.implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+            naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+            ddl-auto: none
+        open-in-view: false
+        defer-datasource-initialization: true
+        database: mysql
+        properties:
+            show-sql: true # Jpa 수행 시 SQL문 로그 출력
+            format_sql: true # 쿼리 출력시 포맷 정렬되도록 설정
+
+    jaden:
+        datasource:
+            url: jdbc:mysql://192.168.0.28:3306/JADEN?serverTimeZone=UTC&CharacterEncoding=UTF-8
+            driver-class-name: com.mysql.cj.jdbc.Driver
+            username: jaden
+            password: jaden
+            hikari:
+                maximum-pool-size: 5                   #   maximum-pool-size: 최대 pool size (defailt 10)?
+                connection-timeout: 5000               #   connection-timeout: (말 그대로)
+                connection-init-sql: SELECT 1          #   connection-init-sql: SELECT 1
+                validation-timeout: 2000               #   validation-timeout: 2000
+                minimum-idle: 3                        #   minimum-idle: 연결 풀에서 HikariCP가 유지 관리하는 최소 유휴 연결 수
+                idle-timeout: 600000                   #   idle-timeout: 연결을위한 최대 유휴 시간
+                max-lifetime: 1800000                  #   max-lifetime: 닫힌 후 pool 에있는 connection의 최대 수명 (ms)입니다.
+                auto-commit : true                     #   auto-commit: auto commit 여부 (default true)
+server:
+    port: 8080
