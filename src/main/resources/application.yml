@@ -27,5 +27,21 @@ spring:
                 idle-timeout: 600000                   #   idle-timeout: 연결을위한 최대 유휴 시간
                 max-lifetime: 1800000                  #   max-lifetime: 닫힌 후 pool 에있는 connection의 최대 수명 (ms)입니다.
                 auto-commit : true                     #   auto-commit: auto commit 여부 (default true)
+
+    tony:
+        datasource:
+            url: jdbc:mysql://192.168.0.28:3306/TONY?serverTimeZone=UTC&CharacterEncoding=UTF-8
+            driver-class-name: com.mysql.cj.jdbc.Driver
+            username: tony
+            password: tony
+            hikari:
+                maximum-pool-size: 5                   #   maximum-pool-size: 최대 pool size (defailt 10)?
+                connection-timeout: 5000               #   connection-timeout: (말 그대로)
+                connection-init-sql: SELECT 1          #   connection-init-sql: SELECT 1
+                validation-timeout: 2000               #   validation-timeout: 2000
+                minimum-idle: 3                        #   minimum-idle: 연결 풀에서 HikariCP가 유지 관리하는 최소 유휴 연결 수
+                idle-timeout: 600000                   #   idle-timeout: 연결을위한 최대 유휴 시간
+                max-lifetime: 1800000                  #   max-lifetime: 닫힌 후 pool 에있는 connection의 최대 수명 (ms)입니다.
+                auto-commit : true                     #   auto-commit: auto commit 여부 (default true)
 server:
     port: 8080

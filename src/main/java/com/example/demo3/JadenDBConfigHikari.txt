@@ -11,7 +11,6 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
@@ -37,7 +36,9 @@ import com.zaxxer.hikari.HikariDataSource;
     basePackages = "com.example.demo3.jaden"
 )
 public class JadenDBConfig {
-
+/*
+ *          properties 이용한 방법
+ * 
     @Bean
     @ConfigurationProperties("spring.jaden.datasource")
     public DataSourceProperties jadenDataSourceProperties(){
@@ -46,11 +47,30 @@ public class JadenDBConfig {
     
     @Primary
     @Bean(name="jadenDataSource")
+    // @Qualifier("jadenDataSource")
     public DataSource jadenDataSource(){
         return jadenDataSourceProperties()
             .initializeDataSourceBuilder()
             .type(HikariDataSource.class)
             .build();
+    }
+ * 
+ *
+ */
+    @Autowired
+    private Environment env;
+
+    @Bean(name="jadenDataSource")
+    @Qualifier("jadenDataSource")
+    @ConfigurationProperties("spring.jaden.datasource")
+    @Primary
+    public DataSource jadenDataSource(){
+        HikariDataSource dataSource=new HikariDataSource();
+        dataSource.setDriverClassName(env.getProperty("spring.jaden.datasource.driver-class-name"));
+        dataSource.setJdbcUrl(env.getProperty("spring.jaden.datasource.url"));
+        dataSource.setUsername(env.getProperty("spring.jaden.datasource.username"));
+        dataSource.setPassword(env.getProperty("spring.jaden.datasource.password"));
+        return dataSource;
     }
 
     @Bean(name="jadenEntityManager")
